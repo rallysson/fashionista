@@ -1,9 +1,11 @@
 import React, { ReactElement } from "react";
 
+import "./header.scss";
+
 interface Props {}
 
 function Header(): ReactElement {
-  return <div>Header</div>;
+  return <header>Header</header>;
 }
 
 export { Header };
