@@ -1,0 +1,26 @@
+.header {
+  a {
+    text-decoration: none;
+  }
+}
+
+.header__container {
+  margin: 0 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__title {
+  font-family: "Zebrazil";
+  color: black;
+  border: 2px solid black;
+  padding: 8px;
+}
+
+.header__icons {
+  img {
+    margin: 4px;
+    cursor: pointer;
+  }
+}
