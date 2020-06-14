@@ -2,11 +2,18 @@
   padding: 20px;
   min-height: calc(100% - 40px);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .home__loader {
   align-self: center;
+}
+
+.home__itemsQuantidade {
+  margin-bottom: 8px;
+  color: #a8a8a8;
+  font-size: 0.9rem;
 }
 
 .home__productsContainer {

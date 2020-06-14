@@ -19,6 +19,7 @@ function Home(): ReactElement {
 
   return (
     <div className="home">
+      <span className="home__itemsQuantidade">{products.length} itens</span>
       {loading ? (
         <Loader className="home__loader" />
       ) : (
