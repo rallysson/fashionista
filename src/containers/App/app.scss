@@ -1,3 +1,7 @@
+.app {
+  height: 100%;
+}
+
 .app--drawer--visible::before {
   backface-visibility: visible;
   background: radial-gradient(ellipse at center, #7a7a7a 0, #000 100%);
@@ -11,4 +15,8 @@
   visibility: visible;
   width: 100vw;
   z-index: 15;
+}
+
+.app__main {
+  height: calc(100vh - 81px);
 }

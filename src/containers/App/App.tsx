@@ -11,11 +11,13 @@ interface Props {}
 function App(): ReactElement {
   const isDrawerOpen = false;
   return (
-    <div className={`app ${isDrawerOpen && "app--drawer--visible"}`}>
+    <div className={`app ${isDrawerOpen ? "app--drawer--visible" : ""}`}>
       <Header />
-      <Switch>
-        <Route component={Home} path="/" />
-      </Switch>
+      <main className="app__main">
+        <Switch>
+          <Route component={Home} path="/" />
+        </Switch>
+      </main>
     </div>
   );
 }

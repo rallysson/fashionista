@@ -2,13 +2,18 @@
   a {
     text-decoration: none;
   }
+  display: flex;
+  justify-content: center;
 }
 
 .header__container {
   margin: 0 12px;
   display: flex;
+  flex-grow: 1;
+  max-width: 992px;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid black;
 }
 
 .header__title {
