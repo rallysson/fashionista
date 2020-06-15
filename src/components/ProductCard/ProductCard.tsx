@@ -12,12 +12,12 @@ interface Props {
 function ProductCard({ product }: Props): ReactElement {
   return (
     <section className="card">
-      {product.discount_percentage && (
-        <div className="card__discountPercentage">
-          <span>{product.discount_percentage} off</span>
-        </div>
-      )}
-      <Link to={`products/${product.style}`}>
+      <Link to={`products/${product.code_color}`}>
+        {product.discount_percentage && (
+          <div className="card__discountPercentage">
+            <span>{product.discount_percentage} off</span>
+          </div>
+        )}
         <img
           className="card__image"
           src={product.image || defautImage}
