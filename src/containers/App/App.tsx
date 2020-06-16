@@ -7,14 +7,13 @@ import { Home } from "../Home";
 import { Product } from "../Product";
 import { Header } from "../Header";
 import { Cart } from "../Cart";
+import { Search } from "../Search";
 
 import { Drawer } from "../../components/Drawer";
 import { closeDrawer } from "./drawerSlice";
 import { RootState } from "../../store";
 import { DRAWERS_NAMES } from "../../constants";
 import "./app.scss";
-
-interface Props {}
 
 function App(): ReactElement {
   const dispatch = useDispatch();
@@ -39,6 +38,13 @@ function App(): ReactElement {
         title="Carrinho"
       >
         <Cart />
+      </Drawer>
+      <Drawer
+        visible={visibleDrawer === DRAWERS_NAMES.SEARCH}
+        onClose={() => dispatch(closeDrawer())}
+        title="Busca"
+      >
+        <Search />
       </Drawer>
     </div>
   );

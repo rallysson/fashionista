@@ -5,6 +5,7 @@ import "./cartItem.scss";
 
 import minusIcon from "../../assets/icons/minus-square.svg";
 import plusIcon from "../../assets/icons/plus-square.svg";
+import defaultImage from "../../assets/default-image.png";
 
 interface Props {
   onIncrement(): void;
@@ -24,7 +25,7 @@ function CartItem({
   return (
     <div className="cardItem">
       <div className="cardItem__imageContainer">
-        <img src={item.image} alt={item.name} />
+        <img src={item.image || defaultImage} alt={item.name} />
         <button onClick={onRemoveItem}>Remover Item</button>
       </div>
       <div className="cardItem__data">
