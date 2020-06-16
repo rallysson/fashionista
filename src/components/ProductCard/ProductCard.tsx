@@ -23,6 +23,7 @@ function ProductCard({ product }: Props): ReactElement {
           src={product.image || defautImage}
           alt={product.name}
         />
+
         <div className="card__descriptionContainer">
           <b>{product.name}</b>
           {product.discount_percentage ? (

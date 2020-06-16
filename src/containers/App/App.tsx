@@ -1,26 +1,31 @@
 import React, { ReactElement, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { fetchProducts } from "../Home/productsSlice";
 import { Home } from "../Home";
 import { Product } from "../Product";
 import { Header } from "../Header";
+import { Cart } from "../Cart";
 
+import { Drawer } from "../../components/Drawer";
+import { closeDrawer } from "./drawerSlice";
+import { RootState } from "../../store";
+import { DRAWERS_NAMES } from "../../constants";
 import "./app.scss";
 
 interface Props {}
 
 function App(): ReactElement {
   const dispatch = useDispatch();
+  const visibleDrawer = useSelector((state: RootState) => state.drawer);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const isDrawerOpen = false;
   return (
-    <div className={`app ${isDrawerOpen ? "app--drawer--visible" : ""}`}>
+    <div className={`app ${visibleDrawer ? "app--drawer--visible" : ""}`}>
       <Header />
       <main className="app__main">
         <Switch>
@@ -28,6 +33,13 @@ function App(): ReactElement {
           <Route component={Product} path="/products/:productCodeColor" />
         </Switch>
       </main>
+      <Drawer
+        visible={visibleDrawer === DRAWERS_NAMES.CART}
+        onClose={() => dispatch(closeDrawer())}
+        title="Carrinho"
+      >
+        <Cart />
+      </Drawer>
     </div>
   );
 }

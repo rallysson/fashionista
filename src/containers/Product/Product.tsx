@@ -1,26 +1,50 @@
 import React, { ReactElement, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addItem, incrementItem } from "../Cart/cartSlice";
 
 import { RootState } from "../../store";
 import defautImage from "../../assets/default-image.png";
 
-import "./product.scss";
 import { Product as IProduct } from "../Home/productsSlice";
+import "./product.scss";
 
-interface Props {}
+const getAvaibleSizes = (product: IProduct) =>
+  product.sizes.filter(({ available }) => available);
 
-function Product({}: Props): ReactElement {
+function Product(): ReactElement {
   const { productCodeColor } = useParams();
   const { data: products } = useSelector((state: RootState) => state.products);
+
+  const cartProducts = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
+
   const [selectedSize, setSelectedSize] = useState("");
 
   const selectedProduct = products.find(
     (product) => product.code_color === productCodeColor
   );
 
-  const getAvaibleSizes = (product: IProduct) =>
-    product.sizes.filter(({ available }) => available);
+  function handleAddItem() {
+    const alreadyAdded = cartProducts.find(
+      (cartProduct) =>
+        cartProduct.size === selectedSize &&
+        cartProduct.code_color === (selectedProduct as IProduct).code_color
+    );
+
+    if (alreadyAdded) {
+      dispatch(
+        incrementItem({
+          codeColor: (selectedProduct as IProduct).code_color,
+          size: selectedSize,
+        })
+      );
+    } else {
+      dispatch(
+        addItem({ ...(selectedProduct as IProduct), size: selectedSize })
+      );
+    }
+  }
 
   return (
     <div className="product">
@@ -58,8 +82,10 @@ function Product({}: Props): ReactElement {
             </div>
 
             <div className="product__sizes">
+              Escolha o Tamanho: <br />
               {getAvaibleSizes(selectedProduct).map((size) => (
                 <button
+                  key={size.sku}
                   className={`product__sizeButton ${
                     size.sku === selectedSize
                       ? "product__sizeButton--selected"
@@ -71,7 +97,10 @@ function Product({}: Props): ReactElement {
                 </button>
               ))}
             </div>
-            <button className="product__addCart product__sizeButton">
+            <button
+              onClick={handleAddItem}
+              className="product__addCart product__sizeButton"
+            >
               Adicionar ao Carrinho
             </button>
           </div>

@@ -1,13 +1,25 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { DRAWERS_NAMES } from "../../constants";
+import { openDrawer } from "../App/drawerSlice";
+
 import cartIcon from "../../assets/icons/shopping-cart-icon.svg";
 import searchIcon from "../../assets/icons/search-icon.svg";
+import { RootState } from "../../store";
 
 import "./header.scss";
+import { CartProduct } from "../Cart/cartSlice";
 
-interface Props {}
+const getItemsQuantity = (items: CartProduct[]) =>
+  items.reduce((acc, item) => item.quantity + acc, 0);
 
 function Header(): ReactElement {
+  const cartProducts = useSelector((state: RootState) => state.cart);
+  const itemQuantity = getItemsQuantity(cartProducts);
+  const dispatch = useDispatch();
+
   return (
     <header className="header">
       <div className="header__container">
@@ -15,10 +27,16 @@ function Header(): ReactElement {
           <h1 className="header__title">Fashionista</h1>
         </Link>
         <div className="header__icons">
-          <button>
+          <button
+            onClick={() => dispatch(openDrawer(DRAWERS_NAMES.CART))}
+            className="header__cartIcon"
+          >
             <img src={cartIcon} alt="cart icon" />
+            {itemQuantity > 0 && (
+              <span className="header__cartItemsQuantity">{itemQuantity}</span>
+            )}
           </button>
-          <button>
+          <button onClick={() => dispatch(openDrawer(DRAWERS_NAMES.SEARCH))}>
             <img src={searchIcon} alt="search icon" />
           </button>
         </div>
